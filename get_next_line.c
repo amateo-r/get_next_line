@@ -22,16 +22,16 @@ void	ft_read(char **save, const int fd)
 	if (read(fd, buffer, 0) >= 0 && buffer)
 	{
 		i = 1;
-		while (!ft_strchr(*save, '\n') && i > 0)
+		while (!gnl_strchr(*save, '\n') && i > 0)
 		{
 			i = read(fd, buffer, BUFFER_SIZE);
 			buffer[i] = '\0';
 			if (!*save && i > 0)
-				*save = ft_substr(buffer, 0, i);
+				*save = gnl_substr(buffer, 0, i);
 			else if (i > 0)
 			{
 				tmp = *save;
-				*save = ft_strjoin(*save, buffer);
+				*save = gnl_strjoin(*save, buffer);
 			}
 		}
 	}
@@ -47,18 +47,18 @@ char	*build_line(char **save)
 
 	if (!*save)
 		return (0);
-	if (ft_strchr(*save, '\n'))
+	if (gnl_strchr(*save, '\n'))
 	{
-		i = ft_strlen(*save);
-		j = ft_strlen(ft_strchr(*save, '\n'));
-		line = ft_substr(*save, 0, i - j + 1);
+		i = gnl_strlen(*save);
+		j = gnl_strlen(gnl_strchr(*save, '\n'));
+		line = gnl_substr(*save, 0, i - j + 1);
 		tmp = *save;
-		*save = ft_substr(ft_strchr(*save, '\n'), 1, j);
+		*save = gnl_substr(gnl_strchr(*save, '\n'), 1, j);
 		free(tmp);
 	}
 	else
 	{
-		line = ft_substr(*save, 0, ft_strlen(*save));
+		line = gnl_substr(*save, 0, gnl_strlen(*save));
 		free(*save);
 		*save = 0;
 	}
